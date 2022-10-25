@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,16 +22,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+Route::get('/executed', [HomeController::class, 'getExecutedTasks'])->name('executed');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/expired', [HomeController::class, 'getExpiredTasks'])->name('expired');
 
-Auth::routes();
+Route::get('/create_task', [TaskController::class, 'showCreateTaskForm'])->name('task.create');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/task_post', [TaskController::class, 'saveTask'])->name('task.save');
 
-Auth::routes();
+Route::get('/delete_task/{id}', [TaskController::class, 'deleteTask'])->name('task.delete');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/detail/{id}',[TaskController::class,'showTask'])->name('task.show');
